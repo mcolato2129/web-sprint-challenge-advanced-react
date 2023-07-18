@@ -18,6 +18,7 @@ export default class AppClass extends React.Component {
   // You can delete them and build your own logic from scratch.
 
   getXY = () => {
+    console.log('The click event Worked');
     // It it not necessary to have a state to track the coordinates.
     // It's enough to know what index the "B" is at, to be able to calculate them.
   }
@@ -72,7 +73,7 @@ export default class AppClass extends React.Component {
           <h3 id="message"></h3>
         </div>
         <div id="keypad">
-          <button id="left">LEFT</button>
+          <button onClick={this.getXY} id="left">LEFT</button>
           <button id="up">UP</button>
           <button id="right">RIGHT</button>
           <button id="down">DOWN</button>

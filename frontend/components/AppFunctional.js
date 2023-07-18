@@ -11,6 +11,12 @@ export default function AppFunctional(props) {
   // You can delete them and build your own logic from scratch.
 
   function getXY() {
+    console.log('The Click Event Worked')
+    // GOAL--active square class to move when directional button is clicked.
+    // STEPS:--
+    // 1.OnClick move a direction
+    // 2. Toggle on and off 'active' in square class
+    
     // It it not necessary to have a state to track the coordinates.
     // It's enough to know what index the "B" is at, to be able to calculate them.
   }
@@ -48,7 +54,7 @@ export default function AppFunctional(props) {
     <div id="wrapper" className={props.className}>
       <div className="info">
         <h3 id="coordinates">Coordinates (2, 2)</h3>
-        <h3 id="steps">You moved 0 times</h3>
+        <h3 id="steps">You moved {initialSteps} times</h3>
       </div>
       <div id="grid">
         {
@@ -63,7 +69,7 @@ export default function AppFunctional(props) {
         <h3 id="message"></h3>
       </div>
       <div id="keypad">
-        <button id="left">LEFT</button>
+        <button onClick={getXY} id="left">LEFT</button>
         <button id="up">UP</button>
         <button id="right">RIGHT</button>
         <button id="down">DOWN</button>

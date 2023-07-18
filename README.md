@@ -33,7 +33,7 @@ Study its functionality and also inspect the Console, the Network tab and the El
 
 ## API
 
-- The application includes an endpoint reachable at `POST http://localhost:9000/api/result`.
+- The application includes an endpoint reachable at `POST http://localhost:9000/api/result`. 
 - You can experiment with this endpoint using an HTTP client like Postman.
 - The endpoint expects a payload like `{ "x": 1, "y": 2, "steps": 3, "email": "lady@gaga.com" }`:
   - `x` should be an integer between 1 and 3.
