@@ -1,5 +1,5 @@
-import React from 'react'
-
+import React from 'react';
+import { useState } from 'react';
 // Suggested initial states
 const initialMessage = ''
 const initialEmail = ''
@@ -18,7 +18,6 @@ export default class AppClass extends React.Component {
   // You can delete them and build your own logic from scratch.
 
   getXY = () => {
-    console.log('The click event Worked');
     // It it not necessary to have a state to track the coordinates.
     // It's enough to know what index the "B" is at, to be able to calculate them.
   }
@@ -40,6 +39,7 @@ export default class AppClass extends React.Component {
   }
 
   move = (evt) => {
+    console.log('You Clicked me')
     // This event handler can use the helper above to obtain a new index for the "B",
     // and change any states accordingly.
   }
@@ -65,7 +65,7 @@ export default class AppClass extends React.Component {
             [0, 1, 2, 3, 4, 5, 6, 7, 8].map(idx => (
               <div key={idx} className={`square${idx === 4 ? ' active' : ''}`}>
                 {idx === 4 ? 'B' : null}
-              </div>
+              </div> 
             ))
           }
         </div>
@@ -73,7 +73,7 @@ export default class AppClass extends React.Component {
           <h3 id="message"></h3>
         </div>
         <div id="keypad">
-          <button onClick={this.getXY} id="left">LEFT</button>
+          <button onClick={this.move} id="left">LEFT</button>
           <button id="up">UP</button>
           <button id="right">RIGHT</button>
           <button id="down">DOWN</button>
