@@ -13,7 +13,6 @@ export default function AppFunctional(props) {
   const [yCoordinate, setYCoordinate] = useState(Math.floor(currentIndex / 3));
   const [message, setMessage] = useState(initialMessage);
   const [steps, setSteps] = useState(0);
-  const [responseData, setResponsedata] = useState('')
   // THE FOLLOWING HELPERS ARE JUST RECOMMENDATIONS.
   // You can delete them and build your own logic from scratch.
 
