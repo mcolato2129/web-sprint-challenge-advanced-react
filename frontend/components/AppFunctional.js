@@ -155,7 +155,7 @@ export default function AppFunctional(props) {
       "email": email
     })
     .then(res => {
-      setMessage(JSON.stringify(res.data))
+      setMessage(res.data.message)
       console.log(res);
     })
     .catch(err => console.error(err))
