@@ -90,7 +90,7 @@ export default function AppFunctional(props) {
           setMessage("You can't go left");
           return currentIndex;
         }
-        newCol = (currentCol - 1 + numCols) % numCols; // Wrap around to the rightmost column if moving left from the leftmost column.
+        newCol = (currentCol - 1 + numCols) % numCols; 
         setMessage(initialMessage);
         setSteps(steps + 1);
         break;
@@ -100,7 +100,7 @@ export default function AppFunctional(props) {
           setMessage("You can't go up");
           return currentIndex;
         }
-        newRow = (currentRow - 1 + numRows) % numRows; // Wrap around to the bottom row if moving up from the top row.
+        newRow = (currentRow - 1 + numRows) % numRows; 
         setMessage(initialMessage);
         setSteps(steps + 1);
         break;
@@ -109,7 +109,7 @@ export default function AppFunctional(props) {
           setMessage("You can't go right");
           return currentIndex;
         }
-        newCol = (currentCol + 1) % numCols; // Wrap around to the leftmost column if moving right from the rightmost column.
+        newCol = (currentCol + 1) % numCols; 
         setMessage(initialMessage);
         setSteps(steps + 1);
         break;
@@ -118,7 +118,7 @@ export default function AppFunctional(props) {
           setMessage("You can't go down");
           return currentIndex;
         }
-        newRow = (currentRow + 1) % numRows; // Wrap around to the top row if moving down from the bottom row.
+        newRow = (currentRow + 1) % numRows; 
         setMessage(initialMessage);
         setSteps(steps + 1);
         break;
