@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 // Suggested initial states
 const initialMessage = ''
 const initialEmail = ''
@@ -20,12 +21,13 @@ export default class AppClass extends React.Component {
       ...initialState,
       xCoordinate: initialIndex % 3,
       yCoordinate: Math.floor(initialIndex / 3),
+      currentIndex: initialIndex
     };
   }
 
   coordinateTracker() {
     let x, y;
-    const { currentIndex } = this.state;
+    const currentIndex = this.state.currentIndex;
     if (currentIndex === 0) {
       x = 1;
       y = 1;
@@ -67,10 +69,12 @@ export default class AppClass extends React.Component {
 
   reset = () => {
     this.setState({
-      ...initialState,
-      xCoordinate: initialIndex % 3,
-      yCoordinate: Math.floor(initialIndex / 3),
-    });
+      currentIndex: initialIndex,
+      steps: initialSteps,
+      message: initialMessage,
+      xCoordinate: initialIndex / 2, 
+      yCoordinate: initialIndex / 2
+    })
   };
 
   getNextIndex = (direction) => {
@@ -127,9 +131,14 @@ export default class AppClass extends React.Component {
   };
 
   move = (evt) => {
+    console.log(this.state.currentIndex)
     const direction = evt.target.id;
     const nextIndex = this.getNextIndex(direction);
-    this.setState({ currentIndex: nextIndex });
+    this.setState({
+      currentIndex: nextIndex
+    }, () => {
+      this.coordinateTracker();
+    });
   };
 
   onChange = (evt) => {
@@ -156,7 +165,7 @@ export default class AppClass extends React.Component {
   render() {
     const { className } = this.props;
     const { currentIndex, xCoordinate, yCoordinate, message, email } = this.state;
-    
+
     return (
       <div id="wrapper" className={className}>
         <div className="info">
@@ -173,7 +182,7 @@ export default class AppClass extends React.Component {
           }
         </div>
         <div className="info">
-          <h3 id="message">{message}</h3>
+          <h3 id="message">{this.state.message}</h3>
         </div>
         <div id="keypad">
           <button onClick={this.move} id="left">LEFT</button>
