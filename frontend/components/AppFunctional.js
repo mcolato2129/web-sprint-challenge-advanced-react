@@ -13,6 +13,7 @@ export default function AppFunctional(props) {
   const [yCoordinate, setYCoordinate] = useState(Math.floor(currentIndex / 3));
   const [message, setMessage] = useState(initialMessage);
   const [steps, setSteps] = useState(0);
+  const [firstMove, setFirstMove] = useState(true)
   // THE FOLLOWING HELPERS ARE JUST RECOMMENDATIONS.
   // You can delete them and build your own logic from scratch.
 
@@ -21,60 +22,48 @@ export default function AppFunctional(props) {
   }, [currentIndex]);
 
   function coordinateTracker() {
-      let x, y;
-      if (currentIndex === 0) {
-        x = 1;
-        y = 1;
-      } else if (currentIndex === 1) {
-        x = 2;
-        y = 1;
-      } else if (currentIndex === 2) {
-        x = 3;
-        y = 1;
-      } else if (currentIndex === 3) {
-        x = 1;
-        y = 2;
-      } else if (currentIndex === 4) {
-        x = 2;
-        y = 2;
-      } else if (currentIndex === 5) {
-        x = 3;
-        y = 2;
-      } else if (currentIndex === 6) {
-        x = 1;
-        y = 3;
-      } else if (currentIndex === 7) {
-        x = 2;
-        y = 3;
-      } else if (currentIndex === 8) {
-        x = 3;
-        y = 3;
-      }
-    
-      setXCoordinate(x);
-      setYCoordinate(y);
+    let x, y;
+    if (currentIndex === 0) {
+      x = 1;
+      y = 1;
+    } else if (currentIndex === 1) {
+      x = 2;
+      y = 1;
+    } else if (currentIndex === 2) {
+      x = 3;
+      y = 1;
+    } else if (currentIndex === 3) {
+      x = 1;
+      y = 2;
+    } else if (currentIndex === 4) {
+      x = 2;
+      y = 2;
+    } else if (currentIndex === 5) {
+      x = 3;
+      y = 2;
+    } else if (currentIndex === 6) {
+      x = 1;
+      y = 3;
+    } else if (currentIndex === 7) {
+      x = 2;
+      y = 3;
+    } else if (currentIndex === 8) {
+      x = 3;
+      y = 3;
+    }
+
+    setXCoordinate(x);
+    setYCoordinate(y);
   }
 
-
-  
-
-  function getXYMessage() {
-    // It it not necessary to have a state to track the "Coordinates (2, 2)" message for the user.
-    // You can use the `getXY` helper above to obtain the coordinates, and then `getXYMessage`
-    // returns the fully constructed string.
-  }
 
   function reset() {
-    // Use this helper to reset all states to their initial values.
     setCurrentIndex(initialIndex);
     setMessage(initialMessage);
     setSteps(0);
   }
 
   function getNextIndex(direction) {
-    // This helper takes a direction ("left", "up", etc) and calculates what the next index
-    // of the "B" would be. If the move is impossible because we are at the edge of the grid,
-    // this helper should return the current index unchanged.
     const numRows = 3;
     const numCols = 3;
 
@@ -90,7 +79,7 @@ export default function AppFunctional(props) {
           setMessage("You can't go left");
           return currentIndex;
         }
-        newCol = (currentCol - 1 + numCols) % numCols; 
+        newCol = (currentCol - 1 + numCols) % numCols;
         setMessage(initialMessage);
         setSteps(steps + 1);
         break;
@@ -100,7 +89,7 @@ export default function AppFunctional(props) {
           setMessage("You can't go up");
           return currentIndex;
         }
-        newRow = (currentRow - 1 + numRows) % numRows; 
+        newRow = (currentRow - 1 + numRows) % numRows;
         setMessage(initialMessage);
         setSteps(steps + 1);
         break;
@@ -109,7 +98,7 @@ export default function AppFunctional(props) {
           setMessage("You can't go right");
           return currentIndex;
         }
-        newCol = (currentCol + 1) % numCols; 
+        newCol = (currentCol + 1) % numCols;
         setMessage(initialMessage);
         setSteps(steps + 1);
         break;
@@ -118,7 +107,7 @@ export default function AppFunctional(props) {
           setMessage("You can't go down");
           return currentIndex;
         }
-        newRow = (currentRow + 1) % numRows; 
+        newRow = (currentRow + 1) % numRows;
         setMessage(initialMessage);
         setSteps(steps + 1);
         break;
@@ -132,10 +121,9 @@ export default function AppFunctional(props) {
 
 
   function move(evt) {
-    // This event handler can use the helper above to obtain a new index for the "B",
-    // and change any states accordingly.
     const direction = evt.target.id;
     const nextIndex = getNextIndex(direction);
+
     setCurrentIndex(nextIndex);
   }
 
@@ -148,16 +136,16 @@ export default function AppFunctional(props) {
     // Use a POST request to send a payload to the server.
     evt.preventDefault();
     axios.post(`http://localhost:9000/api/result`, {
-      "x": xCoordinate, 
-      "y": yCoordinate, 
-      "steps": steps, 
+      "x": xCoordinate,
+      "y": yCoordinate,
+      "steps": steps,
       "email": email
     })
-    .then(res => {
-      setMessage(res.data.message)
-      console.log(res);
-    })
-    .catch(err => console.error(err))
+      .then(res => {
+        setMessage(res.data.message)
+        console.log(res);
+      })
+      .catch(err => console.error(err))
   }
 
 
@@ -165,7 +153,7 @@ export default function AppFunctional(props) {
     <div id="wrapper" className={props.className}>
       <div className="info">
         <h3 id="coordinates" >Coordinates ({xCoordinate} , {yCoordinate})</h3>
-        <h3 id="steps">You moved {steps} times</h3>
+        <h3 id="steps">You moved {steps} {steps === 1 ? 'time' : 'times'}</h3>  
       </div>
       <div id="grid">
         {
