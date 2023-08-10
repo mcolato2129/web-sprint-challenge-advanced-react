@@ -130,12 +130,19 @@ export default function AppFunctional(props) {
 
   function onChange(evt) {
     setEmail(evt.target.value)
+    document.getElementById('email').setCustomValidity('');
+    setMessage('');
     // You will need this to update the value of the input.
   }
 
   function onSubmit(evt) {
-    // Use a POST request to send a payload to the server.
     evt.preventDefault();
+
+   
+
+    // Check if the email is in valid format
+   
+
     axios.post(`http://localhost:9000/api/result`, {
       "x": xCoordinate,
       "y": yCoordinate,
@@ -143,23 +150,23 @@ export default function AppFunctional(props) {
       "email": email
     })
       .then(res => {
-        setMessage(res.data.message)
-        console.log(res.data)
+        setMessage(res.data.message);
         setEmail(initialEmail);
-        console.log(res.data.failure);
+        console.log(res);
       })
       .catch(err => {
-        setMessage('Ouch: email is required')
-        console.error(err)
-      })
+        setMessage(err.response.data.message)
+        console.error(err.response.data.message)
+      });
   }
+
 
 
   return (
     <div id="wrapper" className={props.className}>
       <div className="info">
         <h3 id="coordinates" >Coordinates ({xCoordinate} , {yCoordinate})</h3>
-        <h3 id="steps">You moved {steps} {steps === 1 ? 'time' : 'times'}</h3>  
+        <h3 id="steps">You moved {steps} {steps === 1 ? 'time' : 'times'}</h3>
       </div>
       <div id="grid">
         {
@@ -181,7 +188,13 @@ export default function AppFunctional(props) {
         <button onClick={reset} id="reset">reset</button>
       </div>
       <form onSubmit={onSubmit}>
-        <input id="email" type="email" placeholder="type email" value={email} onChange={onChange}></input>
+        <input
+          id="email"
+          type="email"
+          placeholder="type email"
+          value={email}
+          onChange={onChange}
+          ></input>
         <input id="submit" type="submit"></input>
       </form>
     </div>
