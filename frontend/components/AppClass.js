@@ -72,6 +72,7 @@ export default class AppClass extends React.Component {
       currentIndex: initialIndex,
       steps: initialSteps,
       message: initialMessage,
+      email: initialEmail,
       xCoordinate: initialIndex / 2, 
       yCoordinate: initialIndex / 2
     })
@@ -157,9 +158,13 @@ export default class AppClass extends React.Component {
     })
       .then((res) => {
         this.setState({ message: res.data.message });
+        this.setState({email: initialEmail})
         console.log(res);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        this.setState({message: 'Ouch: email is required'})
+        console.error(err)
+      });
   };
 
   render() {

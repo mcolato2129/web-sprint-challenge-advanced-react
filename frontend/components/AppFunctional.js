@@ -61,6 +61,7 @@ export default function AppFunctional(props) {
     setCurrentIndex(initialIndex);
     setMessage(initialMessage);
     setSteps(0);
+    setEmail(initialEmail)
   }
 
   function getNextIndex(direction) {
@@ -143,9 +144,14 @@ export default function AppFunctional(props) {
     })
       .then(res => {
         setMessage(res.data.message)
-        console.log(res);
+        console.log(res.data)
+        setEmail(initialEmail);
+        console.log(res.data.failure);
       })
-      .catch(err => console.error(err))
+      .catch(err => {
+        setMessage('Ouch: email is required')
+        console.error(err)
+      })
   }
 
 
